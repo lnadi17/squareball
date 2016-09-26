@@ -17,6 +17,7 @@ public class ProtoScript : MonoBehaviour {
 
 	void Start () {
 		timerMaximum += 1;
+		CreateWalls ();
 		LayoutGame (10);
 	}
 	
@@ -56,6 +57,46 @@ public class ProtoScript : MonoBehaviour {
 			answer = num1 - num2;
 		}
 		return answer;
+	}
+
+	
+
+	void CreateWalls(){
+		//In unity, center (0, 0, 0) is the middle point.
+
+		float screenHeightHalf = Camera.main.orthographicSize * 2;
+		float screenWidthHalf = screenHeightHalf * Camera.main.aspect;
+		print (screenWidthHalf);
+
+		Vector2 leftPos = new Vector2 (-screenWidthHalf, 0);
+		Vector2 rightPos = new Vector2 (screenWidthHalf, 0);
+		Vector2 topPos = new Vector2 (0, screenHeightHalf);
+		Vector2 bottomPos = new Vector2 (0, -screenWidthHalf);
+
+		Vector2 topBottom = new Vector2 (screenWidthHalf * 2, 5);
+		Vector2 leftRight = new Vector2 (5, screenHeightHalf * 2);
+
+		//From 0 to 3 || Left, Right, Top, Bottom.
+		Vector2[] vectorList = new Vector2[] {
+			leftPos,
+			rightPos,
+			topPos,
+			bottomPos
+		};
+			
+		Vector2[] sizeList = new Vector2[] {
+			leftRight,
+			leftRight,
+			topBottom,
+			topBottom
+		};
+			
+		for(int x = 0; x < 4; x++){
+			GameObject Wall = new GameObject ();
+			BoxCollider2D boxcol = Wall.AddComponent<BoxCollider2D> ();
+			Wall.transform.position = vectorList [x];
+			boxcol.size = sizeList [x];
+		}
 	}
 
 	int RandomCorrect(){
