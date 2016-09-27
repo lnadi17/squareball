@@ -1,7 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PlayerControl : MonoBehaviour {
 
@@ -12,8 +10,11 @@ public class PlayerControl : MonoBehaviour {
 	private float yInput;
 	private Rigidbody2D rb2d;
 
+	private SceneManagement sceneManagement;
+
 	void Start(){
 		rb2d = GetComponent<Rigidbody2D> ();
+		sceneManagement = new SceneManagement ();
 	}
 	
 	void Update () {
@@ -30,10 +31,8 @@ public class PlayerControl : MonoBehaviour {
 
 	//Doesn't matter if the answer is correct or not, restart scene.
 	void OnTriggerEnter2D(Collider2D other){
-		ReplayScene ();
-	}
-
-	void ReplayScene(){
-		SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
+		if (other.tag == "Choice") {
+			sceneManagement.ReplayScene ();
+		}
 	}
 }

@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\PlayerControl.cs" />
      <Compile Include="Assets\Scripts\ProtoScript.cs" />
+     <Compile Include="Assets\Scripts\SceneManagement.cs" />
  <Reference Include="UnityEngine.Advertisements">
  <HintPath>C:/Program Files/Unity 5.5.0b2/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
  </Reference>

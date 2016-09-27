@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿//using System.Collections;
 using UnityEngine;
-using Random = UnityEngine.Random;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class ProtoScript : MonoBehaviour {
 
@@ -10,24 +9,29 @@ public class ProtoScript : MonoBehaviour {
 
 	public Text problemText;
 	public Text timeText;
-
 	public Text leftText;
 	public Text middleText;
 	public Text rightText;
 
 	public float timerMaximum;
 
+	private SceneManagement sceneManagement;
+
 	void Start () {
 		timerMaximum += 1;
 		CreateWalls ();
 		LayoutGame (10);
+
+		sceneManagement = new SceneManagement ();
 	}
 	
 	void Update () {
-		if (timerMaximum > 0f){
+		if (timerMaximum > 0f) {
 			int roundTimer = (int)timerMaximum;
-			timeText.text = roundTimer.ToString();
+			timeText.text = "Time: " + roundTimer.ToString ();
 			timerMaximum -= Time.deltaTime;
+		} else {
+			sceneManagement.ReplayScene ();
 		}
 	}
 
