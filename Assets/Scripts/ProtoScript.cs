@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class ProtoScript : MonoBehaviour {
 
+	public GameObject wallObject;
+
 	public Text problemText;
 	public Text timeText;
 
@@ -51,32 +53,24 @@ public class ProtoScript : MonoBehaviour {
 		textArray [RandomCorrect ()].text = correctAnswer.ToString ();
 	}
 
-	int CorrectAnswer(int num1, int num2, bool isMinus){
-		int answer = num1 + num2;
-		if (isMinus){
-			answer = num1 - num2;
-		}
-		return answer;
-	}
-
-	
-
 	void CreateWalls(){
-		//In unity, center (0, 0, 0) is the middle point.
-
-		float screenHeightHalf = Camera.main.orthographicSize * 2;
+		// Initialize values
+		float screenHeightHalf = Camera.main.orthographicSize;
 		float screenWidthHalf = screenHeightHalf * Camera.main.aspect;
-		print (screenWidthHalf);
 
 		Vector2 leftPos = new Vector2 (-screenWidthHalf, 0);
 		Vector2 rightPos = new Vector2 (screenWidthHalf, 0);
 		Vector2 topPos = new Vector2 (0, screenHeightHalf);
-		Vector2 bottomPos = new Vector2 (0, -screenWidthHalf);
+		Vector2 bottomPos = new Vector2 (0, -screenHeightHalf);
 
-		Vector2 topBottom = new Vector2 (screenWidthHalf * 2, 5);
-		Vector2 leftRight = new Vector2 (5, screenHeightHalf * 2);
+		Vector2 topBottom = new Vector2 (screenWidthHalf * 2, 1);
+		Vector2 leftRight = new Vector2 (1, screenHeightHalf * 2);
 
-		//From 0 to 3 || Left, Right, Top, Bottom.
+		Vector2 leftOff = new Vector2 (-0.5f, 0);
+		Vector2 rightOff = new Vector2 (0.5f, 0);
+		Vector2 topOff = new Vector2 (0, 0.5f);
+		Vector2 bottomOff = new Vector2 (0, -0.5f);
+
 		Vector2[] vectorList = new Vector2[] {
 			leftPos,
 			rightPos,
@@ -90,15 +84,31 @@ public class ProtoScript : MonoBehaviour {
 			topBottom,
 			topBottom
 		};
-			
+
+		Vector2[] offsetList = new Vector2[] {
+			leftOff,
+			rightOff,
+			topOff,
+			bottomOff
+		};
+
+		// Instantiate walls with corresponding position, size and offset
 		for(int x = 0; x < 4; x++){
-			GameObject Wall = new GameObject ();
-			BoxCollider2D boxcol = Wall.AddComponent<BoxCollider2D> ();
-			Wall.transform.position = vectorList [x];
+			GameObject wall = Instantiate (wallObject, vectorList [x], Quaternion.identity);
+			BoxCollider2D boxcol = wall.GetComponent<BoxCollider2D> ();
 			boxcol.size = sizeList [x];
+			boxcol.offset = offsetList [x];
 		}
 	}
 
+	int CorrectAnswer(int num1, int num2, bool isMinus){
+		int answer = num1 + num2;
+		if (isMinus){
+			answer = num1 - num2;
+		}
+		return answer;
+	}
+		
 	int RandomCorrect(){
 		int toCompare = Random.Range (0, 3);
 		if(toCompare == 0){

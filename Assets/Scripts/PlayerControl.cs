@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class PlayerControl : MonoBehaviour {
 
 	[Range(0, 5)]public float speed;
+	public bool debugMode;
 
 	private float xInput;
 	private float yInput;
@@ -16,9 +17,13 @@ public class PlayerControl : MonoBehaviour {
 	}
 	
 	void Update () {
-		xInput = Input.acceleration.x;
-		yInput = Input.acceleration.y;
-
+		if (!debugMode) {
+			xInput = Input.acceleration.x;
+			yInput = Input.acceleration.y;
+		} else {
+			xInput = Input.GetAxis ("Horizontal");
+			yInput = Input.GetAxis ("Vertical");
+		}
 		Vector3 movementVector = new Vector3 (xInput * speed, yInput * speed, 0);
 		rb2d.AddForce (movementVector, ForceMode2D.Force);
 	}
