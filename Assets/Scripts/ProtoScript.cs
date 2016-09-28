@@ -49,12 +49,24 @@ public class ProtoScript : MonoBehaviour {
 		string problemString = randomNumber1.ToString () + MinusOrPlus (isMinus) + randomNumber2.ToString () + " = ?";
 		problemText.text = problemString;
 
-		foreach (Text txt in textArray){
-			txt.text = Random.Range (number - 20, number + 5).ToString();
-		}
-
 		int correctAnswer = CorrectAnswer (randomNumber1, randomNumber2, isMinus);
-		textArray [RandomCorrect ()].text = correctAnswer.ToString ();
+		Text correctText = textArray [RandomCorrect ()];
+		correctText.text = correctAnswer.ToString ();
+		correctText.tag = "Correct";
+
+		//textArray [RandomCorrect ()].text = correctAnswer.ToString ();
+
+		int previousRandom = 0;
+		int randomIncorrect = 0;
+		foreach (Text txt in textArray){
+			if(txt.tag != "Correct"){
+				do {
+					randomIncorrect = Random.Range (correctAnswer - 5, correctAnswer + 5);
+				} while(randomIncorrect == previousRandom || randomIncorrect == correctAnswer);
+				txt.text = randomIncorrect.ToString ();
+				previousRandom = randomIncorrect;
+			}
+		}
 	}
 
 	void CreateWalls(){
