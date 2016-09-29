@@ -33,6 +33,11 @@ public class PlayerControl : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other){
 		if (other.tag == "Choice") {
 			sceneManagement.ReplayScene ();
+			Stats.sessionIncorrect += 1;
+		}
+		if (other.tag == "Correct") {
+			sceneManagement.ReplayScene ();
+			Stats.sessionCorrect += 1;
 		}
 	}
 }

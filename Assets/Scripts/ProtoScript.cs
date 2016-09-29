@@ -32,6 +32,7 @@ public class ProtoScript : MonoBehaviour {
 			timerMaximum -= Time.deltaTime;
 		} else {
 			sceneManagement.ReplayScene ();
+			Stats.sessionIncorrect += 1;
 		}
 	}
 
