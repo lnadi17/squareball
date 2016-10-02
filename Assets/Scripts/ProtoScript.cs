@@ -42,15 +42,14 @@ public class ProtoScript : MonoBehaviour {
 		int randomNumber1 = Random.Range (number - 10, number + 10);
 		int randomNumber2 = Random.Range (number - 10, number + 10);
 
-		bool isMinus = false;
-		if (Random.Range (0, 2) == 0) {
-			isMinus = true;
-		}
+		// Both multiplication and division need better logic
+		//string myOperator = ChooseOperator ("-", "+", "*", "/");
+		string myOperator = ChooseOperator("-", "+");
 
-		string problemString = randomNumber1.ToString () + MinusOrPlus (isMinus) + randomNumber2.ToString () + " = ?";
+		string problemString = randomNumber1.ToString () + " " + myOperator + " " + randomNumber2.ToString () + " = ?";
 		problemText.text = problemString;
 
-		int correctAnswer = CorrectAnswer (randomNumber1, randomNumber2, isMinus);
+		int correctAnswer = CorrectAnswer (randomNumber1, randomNumber2, myOperator);
 		Text correctText = textArray [RandomCorrect ()];
 		correctText.text = correctAnswer.ToString ();
 		correctText.tag = "Correct";
@@ -118,33 +117,56 @@ public class ProtoScript : MonoBehaviour {
 		}
 	}
 
-	int CorrectAnswer(int num1, int num2, bool isMinus){
-		int answer = num1 + num2;
-		if (isMinus){
-			answer = num1 - num2;
+	int CorrectAnswer(int num1, int num2, string operatorString){
+		switch (operatorString) {
+		case "+":
+			return num1 + num2;
+			break;
+		case "-":
+			return num1 - num2;
+			break;
+		case "*":
+			return num1 * num2;
+			break;
+		case "/":
+			return num1 / num2;
+			break;
+		default:
+			return 0;
+			break;
 		}
-		return answer;
 	}
 		
 	int RandomCorrect(){
 		int toCompare = Random.Range (0, 3);
-		if(toCompare == 0){
-			return 0;
-		}
-		if(toCompare == 1){
+		switch (toCompare) {
+		case 1:
 			return 1;
-		}
-		if(toCompare == 2){
+			break;
+		case 2:
 			return 2;
+			break;
+		case 3:
+			return 3;
+			break;
+		default:
+			return 0;
+			break;
 		}
-		return 0;
 	}
 
-	string MinusOrPlus(bool isMinus){
-		if (isMinus){
-			return " - ";
-		}else{
-			return " + ";
-		}
+	string ChooseOperator (string a, string b, string x, string y){
+		string[] opList = new string[] { a, b, x, y };
+		return opList [Random.Range (0, 4)];
 	}
+
+	string ChooseOperator(string x, string y){
+		string[] opList = new string[] { x, y };
+		return opList [Random.Range (0, 2)];
+	}
+
+	string ChooseOperator (string x){
+		return x;
+	}
+
 }
