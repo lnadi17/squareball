@@ -119,39 +119,30 @@ public class ProtoScript : MonoBehaviour {
 
 	int CorrectAnswer(int num1, int num2, string operatorString){
 		switch (operatorString) {
-		case "+":
-			return num1 + num2;
-			break;
-		case "-":
-			return num1 - num2;
-			break;
-		case "*":
-			return num1 * num2;
-			break;
-		case "/":
-			return num1 / num2;
-			break;
-		default:
-			return 0;
-			break;
+			case "+":
+				return num1 + num2;
+			case "-":
+				return num1 - num2;
+			case "*":
+				return num1 * num2;
+			case "/":
+				return num1 / num2;
+			default:
+				return 0;
 		}
 	}
 		
 	int RandomCorrect(){
 		int toCompare = Random.Range (0, 3);
 		switch (toCompare) {
-		case 1:
-			return 1;
-			break;
-		case 2:
-			return 2;
-			break;
-		case 3:
-			return 3;
-			break;
-		default:
-			return 0;
-			break;
+			case 1:
+				return 1;
+			case 2:
+				return 2;
+			case 3:
+				return 3;
+			default:
+				return 0;
 		}
 	}
 

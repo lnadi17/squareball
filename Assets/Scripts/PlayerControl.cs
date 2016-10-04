@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerControl : MonoBehaviour {
@@ -18,7 +18,7 @@ public class PlayerControl : MonoBehaviour {
 	}
 	
 	void Update () {
-		if (!debugMode) {
+		if (!debugMode){
 			xInput = Input.acceleration.x;
 			yInput = Input.acceleration.y;
 		} else {
@@ -40,4 +40,5 @@ public class PlayerControl : MonoBehaviour {
 			Stats.sessionCorrect += 1;
 		}
 	}
+
 }
