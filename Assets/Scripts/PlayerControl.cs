@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class PlayerControl : MonoBehaviour {
@@ -35,10 +34,10 @@ public class PlayerControl : MonoBehaviour {
 			sceneManagement.ReplayScene ();
 			Stats.sessionIncorrect += 1;
 		}
+			
 		if (other.tag == "Correct") {
 			sceneManagement.ReplayScene ();
 			Stats.sessionCorrect += 1;
 		}
 	}
-
 }

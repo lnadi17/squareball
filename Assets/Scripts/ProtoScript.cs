@@ -1,4 +1,4 @@
-﻿//using System.Collections;
+//using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -16,7 +16,7 @@ public class ProtoScript : MonoBehaviour {
 	public float timerMaximum;
 
 	private SceneManagement sceneManagement;
-
+	
 	void Start () {
 		timerMaximum += 1;
 		CreateWalls ();
@@ -24,7 +24,7 @@ public class ProtoScript : MonoBehaviour {
 
 		sceneManagement = new SceneManagement ();
 	}
-	
+
 	void Update () {
 		if (timerMaximum > 0f) {
 			int roundTimer = (int)timerMaximum;
@@ -42,9 +42,9 @@ public class ProtoScript : MonoBehaviour {
 		int randomNumber1 = Random.Range (number - 10, number + 10);
 		int randomNumber2 = Random.Range (number - 10, number + 10);
 
-		// Both multiplication and division need better logic
+		//Both multiplication and division need better logic
 		//string myOperator = ChooseOperator ("-", "+", "*", "/");
-		string myOperator = ChooseOperator("-", "+");
+		string myOperator = ChooseOperator("+", "-");
 
 		string problemString = randomNumber1.ToString () + " " + myOperator + " " + randomNumber2.ToString () + " = ?";
 		problemText.text = problemString;
@@ -53,8 +53,6 @@ public class ProtoScript : MonoBehaviour {
 		Text correctText = textArray [RandomCorrect ()];
 		correctText.text = correctAnswer.ToString ();
 		correctText.tag = "Correct";
-
-		//textArray [RandomCorrect ()].text = correctAnswer.ToString ();
 
 		int previousRandom = 0;
 		int randomIncorrect = 0;
@@ -86,7 +84,7 @@ public class ProtoScript : MonoBehaviour {
 		Vector2 rightOff = new Vector2 (0.5f, 0);
 		Vector2 topOff = new Vector2 (0, 0.5f);
 		Vector2 bottomOff = new Vector2 (0, -0.5f);
-
+		
 		Vector2[] vectorList = new Vector2[] {
 			leftPos,
 			rightPos,
@@ -107,7 +105,7 @@ public class ProtoScript : MonoBehaviour {
 			topOff,
 			bottomOff
 		};
-
+		
 		// Instantiate walls with corresponding position, size and offset
 		for(int x = 0; x < 4; x++){
 			GameObject wall = Instantiate (wallObject, vectorList [x], Quaternion.identity);
